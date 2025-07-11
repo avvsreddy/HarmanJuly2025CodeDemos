@@ -4,33 +4,19 @@
     {
         static void Main(string[] args)
         {
-            //BankAccount acc1 = new BankAccount();
+            //BankAccount account = new BankAccount();
+            //ManageAccount(account);
+            //SavingsBankAccount account = new SavingsBankAccount();
+            //ManageAccount(account);
 
-            //acc1.Balance = 1000;
-            //acc1.Deposit(1000);
-            //acc1.Withdraw(500);
-            //Console.WriteLine($"Balance : {acc1.Balance}");
-            //Console.WriteLine($"Interest Earned for BankAccount : {acc1.CalculateInterestEarned()}");
+            //SrSavingsBankAccount account = new SrSavingsBankAccount();
+            //ManageAccount(account);
 
+            Calculator calculator = new Calculator();
+            calculator.Sum(1, 2);
 
-            //SavingsBankAccount savings = new SavingsBankAccount();
-            //savings.Deposit(1000);
-            //Console.WriteLine($"Savings Balance : {savings.Balance}");
-            //Console.WriteLine($"Interest Earned for Savings BankAccount : {savings.CalculateInterestEarned()}");
-
-            //SrSavingsBankAccount srSavings = new SrSavingsBankAccount();
-            //srSavings.Deposit(1000);
-            //Console.WriteLine($"Sr Savings Balance : {srSavings.Balance}");
-            //Console.WriteLine($"Interest Earned for Sr. Savings BankAccount : {srSavings.CalculateInterestEarned()}");
-
-            //BankAccount acc1 = new BankAccount();
-            //ManageAccount(acc1);
-
-            //SavingsBankAccount acc2 = new SavingsBankAccount();
-            //ManageAccount(acc2);
-
-            SrSavingsBankAccount acc3 = new SrSavingsBankAccount();
-            ManageAccount(acc3);
+            calculator.Sum(1, 2, 4);
+            calculator.Sum(1, 2, 3, 4);
 
         }
 
@@ -43,41 +29,65 @@
         }
     }
 
-    class BankAccount
+    interface BankAccount
     {
-        public string AccNo { get; set; }
-        public int Balance { get; private set; }
+        string AccNo { get; set; }
+        int Balance { get; set; }
 
-        public void Deposit(int amount)
-        {
-            Balance += amount;
-        }
+        void Deposit(int amount);
+        //{
+        //    Balance += amount;
+        //}
 
-        public void Withdraw(int amount)
-        {
-            Balance -= amount;
-        }
+        void Withdraw(int amount);
+        //{
+        //    Balance -= amount;
+        //}
 
-        public double CalculateInterestEarned()
-        {
-            return 0;
-        }
+        double CalculateInterestEarned();
+        //{
+        //Console.WriteLine("Bank Account Interest");
+        //return 0;
+        //}
 
     }
 
-    class SavingsBankAccount : BankAccount
-    {
-        public double CalculateInterestEarned()
-        {
-            return Balance * 0.4;
-        }
-    }
+    //class SavingsBankAccount : BankAccount
+    //{
 
-    class SrSavingsBankAccount : BankAccount
+
+    //    public double CalculateInterestEarned()
+    //    {
+    //        Console.WriteLine("Savings Bank Account Interest");
+    //        return Balance * 0.4;
+    //    }
+    //}
+
+    //class SrSavingsBankAccount : BankAccount
+    //{
+    //    public override double CalculateInterestEarned()
+    //    {
+    //        Console.WriteLine("Sr. Savings Bank Account Interest");
+    //        return Balance * 0.6;
+    //    }
+    //}
+
+
+
+    class Calculator
     {
-        public double CalculateInterestEarned()
+        //public int Sum(int a, int b)
+        //{
+        //    return a + b;
+        //}
+        //public int Sum(int a, int b, int c)
+        //{
+        //    return a + b + c;
+        //}
+
+        public int Sum(int a = 0, int b = 0, int c = 0, int d = 0)
         {
-            return Balance * 0.6;
+            return a + b + c + d;
         }
     }
 }
