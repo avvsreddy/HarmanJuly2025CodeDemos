@@ -27,7 +27,7 @@ namespace FileIODemo2.Presentation
                     case 1: create(); break;
                     case 2: display(); break;
 
-                    case 7: break;
+                    case 7: return;
                     default:
                         break;
                 }
