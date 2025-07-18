@@ -57,6 +57,14 @@ namespace MTDemo1
 
             Console.WriteLine($"Time took to complete: {sw.ElapsedMilliseconds}");
 
+            Console.WriteLine("Runnig with TPL Parallel class");
+
+            sw = Stopwatch.StartNew();
+
+
+            Parallel.Invoke(M11, M22);
+
+            Console.WriteLine($"Time took to complete: {sw.ElapsedMilliseconds}");
 
 
             Console.WriteLine("end of application");
@@ -77,6 +85,28 @@ namespace MTDemo1
             {
                 Thread.Sleep(1000);
             }
+        }
+
+        static void M11()
+        {
+            //
+            //for (int i = 0; i < 10; i++)
+            Parallel.For(0, 10, delegate (int i)
+            {
+                Console.WriteLine($"M11 Running in {Thread.CurrentThread.ManagedThreadId}");
+
+                Thread.Sleep(1000);
+            });
+        }
+        static void M22()
+        {
+            //for (int i = 0; i < 10; i++)
+            Parallel.For(0, 10, i =>
+            {
+                Console.WriteLine($"M22 Running in {Thread.CurrentThread.ManagedThreadId}");
+
+                Thread.Sleep(1000);
+            });
         }
     }
 }
