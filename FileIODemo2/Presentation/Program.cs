@@ -5,7 +5,7 @@ namespace FileIODemo2.Presentation
 {
     internal class Program
     {
-        private static IContactRepository contactRepository = new ContactRepository(); //DIP
+        private static IContactRepository contactRepository = new ContactEFRepository(); //DIP
         static void Main(string[] args)
         {
             while (true)
