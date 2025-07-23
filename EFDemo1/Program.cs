@@ -25,6 +25,20 @@ namespace EFDemo1
 
             //Update();
 
+
+
+            // Add new product with new category
+            ProductsDbContext db = new ProductsDbContext();
+            Product p = new Product { ProductName = "I Phone 16", Price = 99000, Brand = "Apple" };
+
+            Category c = new Category { CategoryName = "Mobiles" };
+
+            p.Category = c;
+
+            db.Products.Add(p);
+            //db.Categories.Add(c);
+            db.SaveChanges();
+
         }
 
         private static void Update()
