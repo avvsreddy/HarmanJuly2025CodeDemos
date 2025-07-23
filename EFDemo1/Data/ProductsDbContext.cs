@@ -18,6 +18,7 @@ namespace EFDemo1.Data
 
         // Map Entities with Tables
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
     }
 }
