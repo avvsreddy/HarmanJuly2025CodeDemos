@@ -18,7 +18,7 @@ namespace EFDemo1
             // STep 5: Data Migration - each time when dbcontext or entity classess changes -> PMC/CLI
 
             //SaveProduct();
-            //GetAll();
+            GetAll();
 
             //Delete();
             // Update
