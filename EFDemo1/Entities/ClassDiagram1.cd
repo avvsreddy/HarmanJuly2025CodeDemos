@@ -33,12 +33,9 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAgAQ=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAgAA=</HashCode>
       <FileName>Entities\Product.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Products" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="EFDemo1.Entities.Address">
     <Position X="8.5" Y="2.75" Width="1.5" />
@@ -50,12 +47,9 @@
   <Class Name="EFDemo1.Entities.Person">
     <Position X="4.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAEAAAAAAQAAAAAAACCAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAAAAEAAAAAAQAAAAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>Entities\Product.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Address" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="EFDemo1.Entities.Customer">
     <Position X="6.5" Y="5" Width="1.5" />

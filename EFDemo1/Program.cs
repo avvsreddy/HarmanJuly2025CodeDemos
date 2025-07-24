@@ -1,5 +1,6 @@
 ﻿using EFDemo1.Data;
 using EFDemo1.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFDemo1
 {
@@ -9,19 +10,16 @@ namespace EFDemo1
         {
             using (ProductsDbContext db = new ProductsDbContext())
             {
-                // add new customer and new supplier into db
+                // update category names to upper case
 
-                var c = new Customer { Name = "Customer 1", Email = "cust1@mail.com", Discount = 10, Mobile = "34234234", Address = new Address { Area = "A1", City = "Bangalore", Country = "India" } };
+                //var categories = db.Categories.ToList();
+                //foreach (var category in categories)
+                //{
+                //    category.CategoryName = category.CategoryName.ToUpper();
+                //}
+                //db.SaveChanges();
 
-                var s = new Supplier { Name = "Supplier 1", Email = "supp1@mail.com", GSTNo = "3sdfsdf234", Rating = 5, Mobile = "34234234", Address = new Address { Area = "A2", City = "Delhi", Country = "India" } };
-
-                db.People.Add(c);
-                db.People.Add(s);
-
-                //db.Suppliers.Add(s);
-                //db.Customers.Add(c);
-                db.SaveChanges();
-
+                db.Database.ExecuteSqlRaw("update categories set categoryname = Upper(CategoryName)");
             }
 
         }

@@ -33,7 +33,7 @@ namespace EFDemo1.Entities
         public string GSTNo { get; set; }
         public int Rating { get; set; }
 
-        public List<Product> Products { get; set; } = new List<Product>();
+        //public List<Product> Products { get; set; } = new List<Product>();
     }
 
     [ComplexType]
@@ -52,7 +52,7 @@ namespace EFDemo1.Entities
         public string Name { get; set; }
         public string Mobile { get; set; }
         public string Email { get; set; }
-        public Address Address { get; set; }
+        //public Address Address { get; set; }
 
     }
 

@@ -17,6 +17,13 @@ namespace EFDemo1.Data
             optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //modelBuilder.Entity<Person>().UseTptMappingStrategy();
+            modelBuilder.Entity<Person>().UseTpcMappingStrategy();
+
+        }
+
 
 
         // Map Entities with Tables
