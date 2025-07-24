@@ -1,5 +1,6 @@
 ﻿using EFDemo1.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace EFDemo1.Data
 {
@@ -12,6 +13,8 @@ namespace EFDemo1.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=HarmanProductsDbJuly2025;Trusted_Connection=True;");
+
+            optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
         }
 
 
@@ -19,6 +22,8 @@ namespace EFDemo1.Data
         // Map Entities with Tables
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Supplier> Suppliers { get; set; }
 
     }
 }

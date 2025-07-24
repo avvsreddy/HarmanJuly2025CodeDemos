@@ -1,5 +1,6 @@
 ﻿using EFDemo1.Data;
 using EFDemo1.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFDemo1
 {
@@ -18,7 +19,7 @@ namespace EFDemo1
             // STep 5: Data Migration - each time when dbcontext or entity classess changes -> PMC/CLI
 
             //SaveProduct();
-            GetAll();
+            //GetAll();
 
             //Delete();
             // Update
@@ -26,7 +27,45 @@ namespace EFDemo1
             //Update();
 
 
+            // ProductIntoExistingCategory();
 
+
+            // get product name along with category name and display
+
+            using (ProductsDbContext db = new ProductsDbContext())
+            {
+                //var products = from p in db.Products.Include(p => p.Category)
+                //               select p;
+                var products = from p in db.Products.Include("Category")//.Include("Ratings").Include("Discounts")
+                               select p;
+
+                foreach (var item in products)
+                {
+                    Console.WriteLine($"{item.ProductName}\t{item.Category.CategoryName}");
+                }
+            }
+
+
+        }
+
+        private static void ProductIntoExistingCategory()
+        {
+            // add new product into existing category
+            using (ProductsDbContext db = new ProductsDbContext())
+            {
+                var existingCategory = db.Categories.Find(1);
+
+                var newProduct = new Product { ProductName = "Samsung Galaxy S25 Pro", Price = 99000, Brand = "Samsung", Category = existingCategory };
+
+                db.Products.Add(newProduct);
+                db.SaveChanges();
+            }
+
+            ///db.Dispose();
+        }
+
+        private static void ProductCategorySave()
+        {
             // Add new product with new category
             ProductsDbContext db = new ProductsDbContext();
             Product p = new Product { ProductName = "I Phone 16", Price = 99000, Brand = "Apple" };
@@ -38,7 +77,6 @@ namespace EFDemo1
             db.Products.Add(p);
             //db.Categories.Add(c);
             db.SaveChanges();
-
         }
 
         private static void Update()
