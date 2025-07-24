@@ -24,6 +24,8 @@ namespace EFDemo1.Data
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Person> People { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
     }
 }

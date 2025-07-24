@@ -1,6 +1,5 @@
 ﻿using EFDemo1.Data;
 using EFDemo1.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace EFDemo1
 {
@@ -8,43 +7,22 @@ namespace EFDemo1
     {
         static void Main(string[] args)
         {
-            // Manage Products : CRUD
-
-            //User Story: I as a user i want to  Save product details into database table, so that i can get it back
-
-            // Step 1: UI: console, DB: MS Sql Server, FW: EF, Code First
-            // STep 2: Create Product Entity class - done
-            // Step 3: Download and Install EF Core from nuget - done
-            // Step 4: Configure DB and Map Classes with Tables - done
-            // STep 5: Data Migration - each time when dbcontext or entity classess changes -> PMC/CLI
-
-            //SaveProduct();
-            //GetAll();
-
-            //Delete();
-            // Update
-
-            //Update();
-
-
-            // ProductIntoExistingCategory();
-
-
-            // get product name along with category name and display
-
             using (ProductsDbContext db = new ProductsDbContext())
             {
-                //var products = from p in db.Products.Include(p => p.Category)
-                //               select p;
-                var products = from p in db.Products.Include("Category")//.Include("Ratings").Include("Discounts")
-                               select p;
+                // add new customer and new supplier into db
 
-                foreach (var item in products)
-                {
-                    Console.WriteLine($"{item.ProductName}\t{item.Category.CategoryName}");
-                }
+                var c = new Customer { Name = "Customer 1", Email = "cust1@mail.com", Discount = 10, Mobile = "34234234", Address = new Address { Area = "A1", City = "Bangalore", Country = "India" } };
+
+                var s = new Supplier { Name = "Supplier 1", Email = "supp1@mail.com", GSTNo = "3sdfsdf234", Rating = 5, Mobile = "34234234", Address = new Address { Area = "A2", City = "Delhi", Country = "India" } };
+
+                db.People.Add(c);
+                db.People.Add(s);
+
+                //db.Suppliers.Add(s);
+                //db.Customers.Add(c);
+                db.SaveChanges();
+
             }
-
 
         }
 
