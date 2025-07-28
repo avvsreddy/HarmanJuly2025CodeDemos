@@ -1,4 +1,6 @@
 
+using Microsoft.AspNet.OData.Extensions;
+
 namespace HarmanCoolProductsService
 {
     public class Program
@@ -9,7 +11,9 @@ namespace HarmanCoolProductsService
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddNewtonsoftJson();
+            builder.Services.AddOData(); // for OData
+
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
@@ -31,8 +35,15 @@ namespace HarmanCoolProductsService
 
             app.UseHttpsRedirection();
 
+            app.UseRouting();
+
             app.UseAuthorization();
 
+            app.UseEndpoints(e =>
+            {
+                e.EnableDependencyInjection();
+                e.Select().OrderBy().Filter().Count().MaxTop(100).SkipToken();
+            });
 
             app.MapControllers();
 

@@ -1,5 +1,6 @@
 ﻿using HarmanCoolProductsService.Models.Data;
 using HarmanCoolProductsService.Models.Entities;
+using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HarmanCoolProductsService.Controllers
@@ -18,67 +19,68 @@ namespace HarmanCoolProductsService.Controllers
         // GET www.harman.com/api/
         //  // GET localhost:234234/api/CoolProducts
         [HttpGet]
-        public List<Product> GetProducts() // Action Method
+        [EnableQuery]
+        public IQueryable<Product> GetProducts() // Action Method
         {
             // get products from model/backend/data layer and return
             using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
             {
-                return db.Products.ToList();
+                return db.Products.AsQueryable();
             }
         }
 
         // get product by id
         //localhost:234234/api/CoolProducts/123
-        [HttpGet]
-        [Route("{id:int}")]
-        public IActionResult GetProdcutById(int id)
-        {
-            using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
-            {
-                var prodductToSearch = db.Products.Find(id);
-                if (prodductToSearch != null)
-                    return Ok(prodductToSearch); // 200 with data
-                else
-                    return NotFound(); // 404
-            }
-        }
+        //[HttpGet]
+        //[Route("{id:int}")]
+        //public IActionResult GetProdcutById(int id)
+        //{
+        //    using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
+        //    {
+        //        var prodductToSearch = db.Products.Find(id);
+        //        if (prodductToSearch != null)
+        //            return Ok(prodductToSearch); // 200 with data
+        //        else
+        //            return NotFound(); // 404
+        //    }
+        //}
 
 
         //Lab 1: get product by name
         //localhost:234234/api/CoolProducts/name/smartwatch
-        [HttpGet]
-        [Route("name/{name:alpha}")]
-        public IActionResult GetProductByName(string name)
-        {
-            using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
-            {
-                var prodductToSearch = db.Products.Where(p => p.Name == name).FirstOrDefault();
-                if (prodductToSearch != null)
-                    return Ok(prodductToSearch); // 200 with data
-                else
-                    return NotFound(); // 404
-            }
-        }
+        //[HttpGet]
+        //[Route("name/{name:alpha}")]
+        //public IActionResult GetProductByName(string name)
+        //{
+        //    using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
+        //    {
+        //        var prodductToSearch = db.Products.Where(p => p.Name == name).FirstOrDefault();
+        //        if (prodductToSearch != null)
+        //            return Ok(prodductToSearch); // 200 with data
+        //        else
+        //            return NotFound(); // 404
+        //    }
+        //}
 
 
         //Lab 2: get products by country
 
         //localhost:234234/api/CoolProducts/country/india
-        [HttpGet]
-        [Route("country/{country:alpha}")]
-        public IActionResult GetProductByCountry(string country)
-        {
-            using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
-            {
-                var prodductToSearch = db.Products.Where(p => p.Country == country).ToList();
-                if (prodductToSearch.Count > 0)
-                    return Ok(prodductToSearch); // 200 with data
-                else
-                    return NotFound(); // 404
-            }
-        }
+        //[HttpGet]
+        //[Route("country/{country:alpha}")]
+        //public IActionResult GetProductByCountry(string country)
+        //{
+        //    using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
+        //    {
+        //        var prodductToSearch = db.Products.Where(p => p.Country == country).ToList();
+        //        if (prodductToSearch.Count > 0)
+        //            return Ok(prodductToSearch); // 200 with data
+        //        else
+        //            return NotFound(); // 404
+        //    }
+        //}
 
-
+        // 2:45PM
         //Lab 3: get products by brand
         //Lab 4: get cheapest product
         //Lab 5: get costliest product
