@@ -10,6 +10,8 @@ namespace HarmanCoolProductsService.Controllers
     public class CoolProductsController : ControllerBase
     {
 
+        private HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext(); //DIP
+
         // add action methods - endpoints -  map action methods with HTTP Methods - GET-POST-PUT-DELETE-PATCH
         // 
 
@@ -23,10 +25,10 @@ namespace HarmanCoolProductsService.Controllers
         public IQueryable<Product> GetProducts() // Action Method
         {
             // get products from model/backend/data layer and return
-            using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
-            {
-                return db.Products.AsQueryable();
-            }
+            //using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
+            //{
+            return db.Products.AsQueryable();
+            //}
         }
 
         // get product by id
