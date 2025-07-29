@@ -35,6 +35,10 @@ namespace HarmanCoolProductsService.Controllers
         //localhost:234234/api/CoolProducts/123
         [HttpGet]
         [Route("{id:int}")]
+        //[ProducesResponseType(typeof(Product))]
+        [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetProdcutById(int id)
         {
             using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
@@ -52,6 +56,9 @@ namespace HarmanCoolProductsService.Controllers
         //localhost:234234/api/CoolProducts/name/smartwatch
         [HttpGet]
         [Route("name/{name:alpha}")]
+        [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetProductByName(string name)
         {
             using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
@@ -70,6 +77,9 @@ namespace HarmanCoolProductsService.Controllers
         //localhost:234234/api/CoolProducts/country/india
         [HttpGet]
         [Route("country/{country:alpha}")]
+        [ProducesResponseType(typeof(List<Product>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetProductByCountry(string country)
         {
             using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
@@ -95,6 +105,9 @@ namespace HarmanCoolProductsService.Controllers
         // POST localhost:234234/api/CoolProducts
         [HttpPost]
         //[Route("insert")]
+        [ProducesResponseType(typeof(Product), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult PostProduct(Product product)
         {
             // Validate the input
@@ -120,6 +133,9 @@ namespace HarmanCoolProductsService.Controllers
         //[HttpDelete("{id}")]
         [HttpDelete]
         // implement the action method
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult DeleteProduct(int id)
         {
             var productToDel = db.Products.Find(id);
@@ -134,10 +150,43 @@ namespace HarmanCoolProductsService.Controllers
         }
 
         // purpose: edit product
-        // design the uri:
+        // design the uri: PUT .../api/coolproducts/id
+
         // map the route
+
         // map the http action
+        [HttpPut("{id:int}")]
+        // [HttpPatch] research and implement
         // implement the action method
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult EditProduct(int id, [FromBody] Product product)
+        {
+            //var productToEdit = db.Products.Find(id);
+            //if (productToEdit == null)
+            //    return BadRequest("Product not found");
+
+            //productToEdit.Name = product.Name;
+            //productToEdit.Price = product.Price;
+            //productToEdit.Catagory = product.Catagory;
+            //productToEdit.Brand = product.Brand;
+            //productToEdit.Country = product.Country;
+            //productToEdit.Instock = product.Instock;
+
+            // Research: use Automapper to convert one object into another object
+            try
+            {
+                //db.Products.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                db.Products.Update(product);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok();
+        }
 
     }
 
