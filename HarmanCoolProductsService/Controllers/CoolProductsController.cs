@@ -133,6 +133,11 @@ namespace HarmanCoolProductsService.Controllers
 
         }
 
+        // purpose: edit product
+        // design the uri:
+        // map the route
+        // map the http action
+        // implement the action method
 
     }
 
