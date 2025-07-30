@@ -1,5 +1,6 @@
-
+using HarmanCoolProductsService.Models.Data;
 using Microsoft.AspNet.OData.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace HarmanCoolProductsService
 {
@@ -10,6 +11,18 @@ namespace HarmanCoolProductsService
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            string connectionString = builder.Configuration.GetConnectionString("ConStr");
+
+            builder.Services.AddDbContext<HarmansCoolProductsDbContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+            });
+
+            //builder.Services.AddScoped(typeof(HarmansCoolProductsDbContext)); // IoC configuration
+            //builder.Services.AddTransient(typeof(HarmansCoolProductsDbContext)); // IoC configuration
+            //builder.Services.AddSingleton(typeof(HarmansCoolProductsDbContext)); // IoC configuration
+
 
             builder.Services.AddControllers().AddNewtonsoftJson();
             builder.Services.AddOData(); // for OData

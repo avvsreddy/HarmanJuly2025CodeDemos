@@ -8,12 +8,18 @@ namespace HarmanCoolProductsService.Models.Data
         // configure DB
 
         // use ctor
+
+        public HarmansCoolProductsDbContext(DbContextOptions options) : base(options)
+        {
+
+        }
+
         // override onconfig
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=HarmansCoolProductsServiceDB2025;Integrated Security=True;Pooling=False;Encrypt=True;Trust Server Certificate=True");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=HarmansCoolProductsServiceDB2025;Integrated Security=True;Pooling=False;Encrypt=True;Trust Server Certificate=True");
+        //}
 
 
         // Map Entities with Tables

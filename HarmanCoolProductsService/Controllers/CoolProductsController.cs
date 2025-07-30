@@ -10,7 +10,13 @@ namespace HarmanCoolProductsService.Controllers
     public class CoolProductsController : ControllerBase
     {
 
-        private HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext(); //DIP
+        private HarmansCoolProductsDbContext db = null;// = new Models.Data.HarmansCoolProductsDbContext(); //DIP
+
+
+        public CoolProductsController(HarmansCoolProductsDbContext db)
+        {
+            this.db = db;
+        }
 
         // add action methods - endpoints -  map action methods with HTTP Methods - GET-POST-PUT-DELETE-PATCH
         // 
@@ -41,7 +47,7 @@ namespace HarmanCoolProductsService.Controllers
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetProdcutById(int id)
         {
-            using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
+            //using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
             {
                 var prodductToSearch = db.Products.Find(id);
                 if (prodductToSearch != null)
@@ -61,7 +67,7 @@ namespace HarmanCoolProductsService.Controllers
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetProductByName(string name)
         {
-            using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
+            //using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
             {
                 var prodductToSearch = db.Products.Where(p => p.Name == name).FirstOrDefault();
                 if (prodductToSearch != null)
@@ -82,7 +88,7 @@ namespace HarmanCoolProductsService.Controllers
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetProductByCountry(string country)
         {
-            using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
+            //using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
             {
                 var prodductToSearch = db.Products.Where(p => p.Country == country).ToList();
                 if (prodductToSearch.Count > 0)
