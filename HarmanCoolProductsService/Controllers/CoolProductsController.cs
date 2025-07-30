@@ -1,4 +1,4 @@
-﻿using HarmanCoolProductsService.Models.Data;
+﻿using HarmanCoolProductsService.Models.Domain;
 using HarmanCoolProductsService.Models.Entities;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +10,18 @@ namespace HarmanCoolProductsService.Controllers
     public class CoolProductsController : ControllerBase
     {
 
-        private HarmansCoolProductsDbContext db = null;// = new Models.Data.HarmansCoolProductsDbContext(); //DIP
+        //private HarmansCoolProductsDbContext db = null;// = new Models.Data.HarmansCoolProductsDbContext(); //DIP
 
+        private ICoolProductsService service = null;
 
-        public CoolProductsController(HarmansCoolProductsDbContext db)
+        //public CoolProductsController(HarmansCoolProductsDbContext db)
+        //{
+        //    this.db = db;
+        //}
+
+        public CoolProductsController(ICoolProductsService service)
         {
-            this.db = db;
+            this.service = service;
         }
 
         // add action methods - endpoints -  map action methods with HTTP Methods - GET-POST-PUT-DELETE-PATCH
@@ -33,7 +39,8 @@ namespace HarmanCoolProductsService.Controllers
             // get products from model/backend/data layer and return
             //using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
             //{
-            return db.Products.AsQueryable();
+            //return db.Products.AsQueryable();
+            return service.GetProducts().AsQueryable();
             //}
         }
 
@@ -49,9 +56,10 @@ namespace HarmanCoolProductsService.Controllers
         {
             //using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
             {
-                var prodductToSearch = db.Products.Find(id);
-                if (prodductToSearch != null)
-                    return Ok(prodductToSearch); // 200 with data
+                //var prodductToSearch = db.Products.Find(id);
+                var productToSearch = service.GetProductById(id);
+                if (productToSearch != null)
+                    return Ok(productToSearch); // 200 with data
                 else
                     return NotFound(); // 404
             }
@@ -69,7 +77,8 @@ namespace HarmanCoolProductsService.Controllers
         {
             //using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
             {
-                var prodductToSearch = db.Products.Where(p => p.Name == name).FirstOrDefault();
+                //var prodductToSearch = db.Products.Where(p => p.Name == name).FirstOrDefault();
+                var prodductToSearch = service.GetProductByName(name);
                 if (prodductToSearch != null)
                     return Ok(prodductToSearch); // 200 with data
                 else
@@ -90,7 +99,8 @@ namespace HarmanCoolProductsService.Controllers
         {
             //using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
             {
-                var prodductToSearch = db.Products.Where(p => p.Country == country).ToList();
+                //var prodductToSearch = db.Products.Where(p => p.Country == country).ToList();
+                var prodductToSearch = service.GetProductsByCountry(country);
                 if (prodductToSearch.Count > 0)
                     return Ok(prodductToSearch); // 200 with data
                 else
@@ -123,8 +133,9 @@ namespace HarmanCoolProductsService.Controllers
             }
 
             // save data
-            db.Products.Add(product);
-            db.SaveChanges();
+            //db.Products.Add(product);
+            service.SaveProduct(product);
+            //db.SaveChanges();
 
             // return http status code 201 + location + data
             return Created($"api/coolproducts/{product.Id}", product);
@@ -144,13 +155,15 @@ namespace HarmanCoolProductsService.Controllers
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult DeleteProduct(int id)
         {
-            var productToDel = db.Products.Find(id);
+            //var productToDel = db.Products.Find(id);
+            var productToDel = service.GetProductById(id);
             if (productToDel == null)
             {
                 return NotFound("Product not found");
             }
-            db.Products.Remove(productToDel);
-            db.SaveChanges();
+            //db.Products.Remove(productToDel);
+            //db.SaveChanges();
+            service.SoftDeleteProduct(productToDel.Id);
             return Ok();
 
         }
@@ -184,8 +197,9 @@ namespace HarmanCoolProductsService.Controllers
             try
             {
                 //db.Products.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                db.Products.Update(product);
-                db.SaveChanges();
+                //db.Products.Update(product);
+                //db.SaveChanges();
+                service.UpdateProduct(product);
             }
             catch (Exception ex)
             {

@@ -17,5 +17,6 @@ namespace HarmanCoolProductsService.Models.Entities
         [MaxLength(50)]
         public string Country { get; set; }
         public bool Instock { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

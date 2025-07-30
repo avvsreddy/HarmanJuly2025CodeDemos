@@ -1,4 +1,5 @@
 using HarmanCoolProductsService.Models.Data;
+using HarmanCoolProductsService.Models.Domain;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,8 @@ namespace HarmanCoolProductsService
             {
                 options.UseSqlServer(connectionString);
             });
+
+            builder.Services.AddScoped(typeof(ICoolProductsService), typeof(CoolProductsService));
 
             //builder.Services.AddScoped(typeof(HarmansCoolProductsDbContext)); // IoC configuration
             //builder.Services.AddTransient(typeof(HarmansCoolProductsDbContext)); // IoC configuration
