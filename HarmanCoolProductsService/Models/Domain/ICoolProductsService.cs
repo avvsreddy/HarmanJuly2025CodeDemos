@@ -4,12 +4,12 @@ namespace HarmanCoolProductsService.Models.Domain
 {
     public interface ICoolProductsService
     {
-        List<Product> GetProducts();
-        Product GetProductById(int id);
-        Product GetProductByName(string name);
-        List<Product> GetProductsByCountry(string country);
-        void UpdateProduct(Product product);
-        void SoftDeleteProduct(int id);
-        void SaveProduct(Product product);
+        Task<List<Product>> GetProductsAsync();
+        Task<Product> GetProductByIdAsync(int id);
+        Task<Product> GetProductByNameAsync(string name);
+        Task<List<Product>> GetProductsByCountryAsync(string country);
+        Task UpdateProductAsync(Product product);
+        Task SoftDeleteProductAsync(int id);
+        Task SaveProductAsync(Product product);
     }
 }

@@ -33,14 +33,28 @@ namespace HarmanCoolProductsService.Controllers
         // GET www.harman.com/api/
         //  // GET localhost:234234/api/CoolProducts
         [HttpGet]
-        [EnableQuery]
+
+        [EnableQuery] // for OData
         public IQueryable<Product> GetProducts() // Action Method
         {
             // get products from model/backend/data layer and return
             //using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
             //{
             //return db.Products.AsQueryable();
-            return service.GetProducts().AsQueryable();
+            return service.GetProductsAsync().Result.AsQueryable();
+            //}
+        }
+        // GET .../api/coorproducts/async
+        [HttpGet]
+        [Route("async")]
+        //[EnableQuery]
+        public async Task<List<Product>> GetProductsAsync() // Action Method
+        {
+            // get products from model/backend/data layer and return
+            //using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
+            //{
+            //return db.Products.AsQueryable();
+            return await service.GetProductsAsync();
             //}
         }
 
@@ -52,12 +66,12 @@ namespace HarmanCoolProductsService.Controllers
         [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetProdcutById(int id)
+        public async Task<IActionResult> GetProdcutByIdAsync(int id)
         {
             //using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
             {
                 //var prodductToSearch = db.Products.Find(id);
-                var productToSearch = service.GetProductById(id);
+                var productToSearch = await service.GetProductByIdAsync(id);
                 if (productToSearch != null)
                     return Ok(productToSearch); // 200 with data
                 else
@@ -73,12 +87,12 @@ namespace HarmanCoolProductsService.Controllers
         [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetProductByName(string name)
+        public async Task<IActionResult> GetProductByNameAsync(string name)
         {
             //using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
             {
                 //var prodductToSearch = db.Products.Where(p => p.Name == name).FirstOrDefault();
-                var prodductToSearch = service.GetProductByName(name);
+                var prodductToSearch = await service.GetProductByNameAsync(name);
                 if (prodductToSearch != null)
                     return Ok(prodductToSearch); // 200 with data
                 else
@@ -95,12 +109,12 @@ namespace HarmanCoolProductsService.Controllers
         [ProducesResponseType(typeof(List<Product>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetProductByCountry(string country)
+        public async Task<IActionResult> GetProductByCountryAsync(string country)
         {
             //using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
             {
                 //var prodductToSearch = db.Products.Where(p => p.Country == country).ToList();
-                var prodductToSearch = service.GetProductsByCountry(country);
+                var prodductToSearch = await service.GetProductsByCountryAsync(country);
                 if (prodductToSearch.Count > 0)
                     return Ok(prodductToSearch); // 200 with data
                 else
@@ -124,7 +138,7 @@ namespace HarmanCoolProductsService.Controllers
         [ProducesResponseType(typeof(Product), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult PostProduct(Product product)
+        public async Task<IActionResult> PostProductAsync(Product product)
         {
             // Validate the input
             if (ModelState.IsValid == false)
@@ -134,7 +148,7 @@ namespace HarmanCoolProductsService.Controllers
 
             // save data
             //db.Products.Add(product);
-            service.SaveProduct(product);
+            await service.SaveProductAsync(product);
             //db.SaveChanges();
 
             // return http status code 201 + location + data
@@ -153,17 +167,17 @@ namespace HarmanCoolProductsService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult DeleteProduct(int id)
+        public async Task<IActionResult> DeleteProductAsync(int id)
         {
             //var productToDel = db.Products.Find(id);
-            var productToDel = service.GetProductById(id);
+            var productToDel = await service.GetProductByIdAsync(id);
             if (productToDel == null)
             {
                 return NotFound("Product not found");
             }
             //db.Products.Remove(productToDel);
             //db.SaveChanges();
-            service.SoftDeleteProduct(productToDel.Id);
+            await service.SoftDeleteProductAsync(productToDel.Id);
             return Ok();
 
         }
@@ -180,7 +194,7 @@ namespace HarmanCoolProductsService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult EditProduct(int id, [FromBody] Product product)
+        public async Task<IActionResult> EditProductAsync(int id, [FromBody] Product product)
         {
             //var productToEdit = db.Products.Find(id);
             //if (productToEdit == null)
@@ -199,7 +213,7 @@ namespace HarmanCoolProductsService.Controllers
                 //db.Products.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 //db.Products.Update(product);
                 //db.SaveChanges();
-                service.UpdateProduct(product);
+                await service.UpdateProductAsync(product);
             }
             catch (Exception ex)
             {

@@ -1,5 +1,6 @@
 ﻿using HarmanCoolProductsService.Models.Domain;
 using HarmanCoolProductsService.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace HarmanCoolProductsService.Models.Data
 {
@@ -12,43 +13,43 @@ namespace HarmanCoolProductsService.Models.Data
         {
             this.db = db;
         }
-        public Product GetProductById(int id)
+        public async Task<Product> GetProductByIdAsync(int id)
         {
-            return db.Products.Where(p => p.IsDeleted == false && p.Id == id).FirstOrDefault();
+            return await db.Products.Where(p => p.IsDeleted == false && p.Id == id).FirstOrDefaultAsync();
         }
 
-        public Product GetProductByName(string name)
+        public async Task<Product> GetProductByNameAsync(string name)
         {
-            return db.Products.Where(p => p.Name == name && p.IsDeleted == false).FirstOrDefault();
+            return await db.Products.Where(p => p.Name == name && p.IsDeleted == false).FirstOrDefaultAsync();
         }
 
-        public List<Product> GetProducts()
+        public async Task<List<Product>> GetProductsAsync()
         {
-            return db.Products.Where(p => p.IsDeleted == false).ToList();
+            return await db.Products.Where(p => p.IsDeleted == false).ToListAsync();
         }
 
-        public List<Product> GetProductsByCountry(string country)
+        public async Task<List<Product>> GetProductsByCountryAsync(string country)
         {
-            return db.Products.Where(p => p.Country == country && p.IsDeleted == false).ToList();
+            return await db.Products.Where(p => p.Country == country && p.IsDeleted == false).ToListAsync();
         }
 
-        public void SaveProduct(Product product)
+        public async Task SaveProductAsync(Product product)
         {
             db.Products.Add(product);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
-        public void SoftDeleteProduct(int id)
+        public async Task SoftDeleteProductAsync(int id)
         {
-            var productToSoftDel = GetProductById(id);
+            var productToSoftDel = await GetProductByIdAsync(id);
             productToSoftDel.IsDeleted = true;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
-        public void UpdateProduct(Product product)
+        public async Task UpdateProductAsync(Product product)
         {
             db.Products.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
     }
 }
