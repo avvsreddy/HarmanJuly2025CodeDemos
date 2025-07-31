@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using SecuredAPI.Model.Data;
+using SecuredAPI.Model.Entities;
 
 namespace SecuredAPI.Controllers
 {
@@ -6,6 +8,8 @@ namespace SecuredAPI.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private AppDbContext db = null;
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -13,9 +17,10 @@ namespace SecuredAPI.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, AppDbContext db)
         {
             _logger = logger;
+            this.db = db;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -33,16 +38,25 @@ namespace SecuredAPI.Controllers
         // post .../weatherforecast/register
         [HttpPost("register")]
 
-        public IActionResult Register()
+        public IActionResult Register(User user)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid User Data");
+            }
+            // validate for duplicate user registration
 
+            db.AppUsers.Add(user);
+            db.SaveChanges();
+
+            return Ok(); // return created
         }
 
         // post .../weatherforecast/login
         [HttpPost("login")]
         public IActionResult Login()
         {
-
+            return Ok();
         }
 
 

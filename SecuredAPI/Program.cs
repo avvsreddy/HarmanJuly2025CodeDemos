@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using SecuredAPI.Model.Data;
+
 namespace SecuredAPI
 {
     public class Program
@@ -9,6 +12,10 @@ namespace SecuredAPI
 
             // Add services to the container.
 
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("ConStr"));
+            });
 
             // Add Swagger services
             builder.Services.AddEndpointsApiExplorer();
