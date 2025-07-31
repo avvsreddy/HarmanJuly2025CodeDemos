@@ -1,6 +1,9 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SecuredAPI.Model.Data;
+using System.Text;
 
 namespace SecuredAPI
 {
@@ -27,6 +30,32 @@ namespace SecuredAPI
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+
+            // JWT Authentication
+            var config = builder.Configuration;
+            var key = Encoding.UTF8.GetBytes(config["Jwt:Key"]!);
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = config["Jwt:Issuer"],
+                    ValidAudience = config["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                };
+            });
+
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -39,8 +68,10 @@ namespace SecuredAPI
 
             app.UseHttpsRedirection();
 
+            //app.UseAuthorization();
+            // Use Auth middleware
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

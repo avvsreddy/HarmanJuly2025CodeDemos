@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SecuredAPI.Model.Data;
 using SecuredAPI.Model.DTO;
@@ -61,7 +62,7 @@ namespace SecuredAPI.Controllers
         {
             // Verify the credentials
 
-            if (!db.AppUsers.Any(u => u.EmailId.Equals(loginDto.LoginId, StringComparison.OrdinalIgnoreCase) && u.Password.Equals(loginDto.Password))) // && loginDto.Role.Equals(loginDto.Role)))
+            if (!db.AppUsers.Any(u => u.EmailId.Equals(loginDto.LoginId) && u.Password.Equals(loginDto.Password))) // && loginDto.Role.Equals(loginDto.Role)))
             {
                 return BadRequest("Invalid Credentials");
             }
@@ -80,12 +81,14 @@ namespace SecuredAPI.Controllers
         }
 
         [HttpGet("user")]
+        [Authorize]
         public IActionResult Secured2Endpoint()
         {
             return Ok("This is for registered users only");
         }
 
         [HttpGet("admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult Secured3Endpoint()
         {
             return Ok("This is for admin users only");
