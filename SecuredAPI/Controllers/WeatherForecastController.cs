@@ -30,9 +30,24 @@ namespace SecuredAPI.Controllers
             .ToArray();
         }
 
+        // post .../weatherforecast/register
+        [HttpPost("register")]
+
+        public IActionResult Register()
+        {
+
+        }
+
+        // post .../weatherforecast/login
+        [HttpPost("login")]
+        public IActionResult Login()
+        {
+
+        }
+
 
         [HttpGet("anonymous")]
-        public IActionResult Secured1Endpoint()
+        public IActionResult UnSecuredEndpoint()
         {
             return Ok("This is for anonymous users users only");
         }
