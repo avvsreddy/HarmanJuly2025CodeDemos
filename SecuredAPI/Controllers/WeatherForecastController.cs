@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SecuredAPI.Model.Data;
+using SecuredAPI.Model.DTO;
 using SecuredAPI.Model.Entities;
 
 namespace SecuredAPI.Controllers
@@ -9,7 +10,7 @@ namespace SecuredAPI.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private AppDbContext db = null;
-
+        private TokenService tokenService = null;
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -17,10 +18,11 @@ namespace SecuredAPI.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, AppDbContext db)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, AppDbContext db, TokenService tokenService)
         {
             _logger = logger;
             this.db = db;
+            this.tokenService = tokenService;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -36,7 +38,7 @@ namespace SecuredAPI.Controllers
         }
 
         // post .../weatherforecast/register
-        [HttpPost("register")]
+        [HttpPost("register")] // keep this endpoint in separate controller
 
         public IActionResult Register(User user)
         {
@@ -45,6 +47,7 @@ namespace SecuredAPI.Controllers
                 return BadRequest("Invalid User Data");
             }
             // validate for duplicate user registration
+            // dont store plain password in db. encrypt and store
 
             db.AppUsers.Add(user);
             db.SaveChanges();
@@ -54,9 +57,19 @@ namespace SecuredAPI.Controllers
 
         // post .../weatherforecast/login
         [HttpPost("login")]
-        public IActionResult Login()
+        public IActionResult Login(LoginDto loginDto)
         {
-            return Ok();
+            // Verify the credentials
+
+            if (!db.AppUsers.Any(u => u.EmailId.Equals(loginDto.LoginId, StringComparison.OrdinalIgnoreCase) && u.Password.Equals(loginDto.Password))) // && loginDto.Role.Equals(loginDto.Role)))
+            {
+                return BadRequest("Invalid Credentials");
+            }
+
+            // generate JWT token
+            string jwtToken = tokenService.CreateToken(loginDto);
+
+            return Ok(jwtToken);
         }
 
 

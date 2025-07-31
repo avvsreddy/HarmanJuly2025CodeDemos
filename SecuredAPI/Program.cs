@@ -17,6 +17,7 @@ namespace SecuredAPI
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConStr"));
             });
 
+            builder.Services.AddScoped(typeof(TokenService));
             // Add Swagger services
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
