@@ -37,6 +37,17 @@ namespace HarmanCoolProductsService
             builder.Services.AddEndpointsApiExplorer(); // required
             builder.Services.AddSwaggerGen();           // required
 
+            // create CORS policy
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            });
+
 
             var app = builder.Build();
 
@@ -48,6 +59,8 @@ namespace HarmanCoolProductsService
                 app.UseSwagger();
                 app.UseSwaggerUI(); // optional customization below
             }
+
+            app.UseCors("AllowAll");
 
             app.UseHttpsRedirection();
 

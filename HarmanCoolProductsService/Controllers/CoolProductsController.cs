@@ -13,15 +13,17 @@ namespace HarmanCoolProductsService.Controllers
         //private HarmansCoolProductsDbContext db = null;// = new Models.Data.HarmansCoolProductsDbContext(); //DIP
 
         private ICoolProductsService service = null;
+        private ILogger<CoolProductsController> logger = null;
 
         //public CoolProductsController(HarmansCoolProductsDbContext db)
         //{
         //    this.db = db;
         //}
 
-        public CoolProductsController(ICoolProductsService service)
+        public CoolProductsController(ICoolProductsService service, ILogger<CoolProductsController> logger)
         {
             this.service = service;
+            this.logger = logger;
         }
 
         // add action methods - endpoints -  map action methods with HTTP Methods - GET-POST-PUT-DELETE-PATCH
@@ -29,12 +31,25 @@ namespace HarmanCoolProductsService.Controllers
 
         // return all products
 
+        [HttpGet]
+        [Route("time")]
+        [ResponseCache(Duration = 60)]
+        public string GetTime()
+        {
+            return DateTime.Now.ToString();
+        }
+
+
+
+
 
         // GET www.harman.com/api/
         //  // GET localhost:234234/api/CoolProducts
         [HttpGet]
 
         [EnableQuery] // for OData
+
+        //[ResponseCache(Duration = 60)]
         public IQueryable<Product> GetProducts() // Action Method
         {
             // get products from model/backend/data layer and return
@@ -48,6 +63,7 @@ namespace HarmanCoolProductsService.Controllers
         [HttpGet]
         [Route("async")]
         //[EnableQuery]
+        //[EnableCors("AllowAll")]
         public async Task<List<Product>> GetProductsAsync() // Action Method
         {
             // get products from model/backend/data layer and return
@@ -92,6 +108,10 @@ namespace HarmanCoolProductsService.Controllers
             //using (HarmansCoolProductsDbContext db = new Models.Data.HarmansCoolProductsDbContext())
             {
                 //var prodductToSearch = db.Products.Where(p => p.Name == name).FirstOrDefault();
+
+                // log the action
+                logger.LogInformation($"Searching Product is :{name}");
+
                 var prodductToSearch = await service.GetProductByNameAsync(name);
                 if (prodductToSearch != null)
                     return Ok(prodductToSearch); // 200 with data
