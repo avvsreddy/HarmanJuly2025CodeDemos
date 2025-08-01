@@ -8,6 +8,7 @@ namespace SecuredAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class WeatherForecastController : ControllerBase
     {
         private AppDbContext db = null;
@@ -27,6 +28,7 @@ namespace SecuredAPI.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
+        //[Authorize]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -40,7 +42,7 @@ namespace SecuredAPI.Controllers
 
         // post .../weatherforecast/register
         [HttpPost("register")] // keep this endpoint in separate controller
-
+        [AllowAnonymous]
         public IActionResult Register(User user)
         {
             if (!ModelState.IsValid)
@@ -57,6 +59,7 @@ namespace SecuredAPI.Controllers
         }
 
         // post .../weatherforecast/login
+        [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult Login(LoginDto loginDto)
         {
