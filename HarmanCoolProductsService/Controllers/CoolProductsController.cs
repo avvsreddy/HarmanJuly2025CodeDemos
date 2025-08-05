@@ -20,10 +20,10 @@ namespace HarmanCoolProductsService.Controllers
         //    this.db = db;
         //}
 
-        public CoolProductsController(ICoolProductsService service, ILogger<CoolProductsController> logger)
+        public CoolProductsController(ICoolProductsService service)
         {
             this.service = service;
-            this.logger = logger;
+            //this.logger = logger;
         }
 
         // add action methods - endpoints -  map action methods with HTTP Methods - GET-POST-PUT-DELETE-PATCH
