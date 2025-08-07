@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="welcome" style="color:green">Welcome to my first JavaScript Program</h1>
+<button onclick="changeColor()">Change Colour</button>
+
+
+
+
+<script>
+        function changeColor(){
+            //let h1Element = document.getElementById("welcome");
+            let h1Element = document.querySelector("#welcome")
+            h1Element.style.color="red";
+            h1Element.textContent = "button clicke and color changed";
+        }
+
+</script>
+</body>
+</html>

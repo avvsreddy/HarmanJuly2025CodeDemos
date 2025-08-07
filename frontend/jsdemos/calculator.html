@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+
+
+
+</style >
+
+</head>
+<body>
+<div  style="background-color: #f0f0f0; margin: auto; width: 50%; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+<h1>Simple Calculator</h1>
+<hr>
+Enter first number<br>
+<input id="fno" type="number" placeholder="First Number"><br>
+Enter second number <br>
+<input id="sno" type="number" placeholder="Second Number"><br>
+<button onclick="add()">Add</button> | <button>Multiply</button>
+<hr>
+<div id="results">
+<!-- <h3 id="result"></h3> -->
+</div>
+<hr>
+
+</div>    
+
+<script>
+function add(){
+    let fno = Number(document.getElementById("fno").value)
+    let sno = Number(document.getElementById("sno").value)
+
+    //console.log(fno,sno)
+
+    let sum = fno + sno;
+    let results = document.getElementById("results");
+    
+    let result = document.createElement('h3')
+    result.textContent = `The sum of ${fno} and ${sno} is ${sum}`
+    results.appendChild(result);
+
+
+}
+
+
+
+</script>
+
+
+</body>
+</html>

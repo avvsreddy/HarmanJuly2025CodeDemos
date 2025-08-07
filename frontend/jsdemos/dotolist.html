@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>To Do List App</h1>
+    <hr>
+<input id="task" type="text" placeholder="Enter Task Item">
+<button onClick=addItem()>Add Item</button>
+<hr>
+<ul id="tasks">
+    <!-- <li>
+        <span>Learn JS</span>
+        <button onClick="done()">Done</button>
+
+    </li>
+    <li>
+        <div
+        <span>Learn C#</span>
+        <button>Done</button>
+    </li> -->
+</ul>
+
+<hr>
+
+<script>
+    function addItem(){
+        let ul = document.getElementById('tasks');
+        let task = document.getElementById('task').value;
+        let li = document.createElement('li')
+        //li.textContent=task;
+        let div = document.createElement('div');
+        let span = document.createElement('span');
+        span.textContent = task;
+
+        let btn = document.createElement('button')
+        btn.textContent="Done";
+        
+        btn.addEventListener('click', function() {
+            done(this);
+        });
+        div.appendChild(span);
+        div.appendChild(btn);    
+        //li.appendChild(span);
+        //li.appendChild(btn);
+        li.appendChild(div)
+        ul.appendChild(li);
+
+       
+    }
+
+    function done(element){
+        // console.log(element)
+        let li = element.parentElement;
+        li.style.textDecoration = 'line-through';
+        li.style.color = 'gray';
+       
+    }
+</script>
+
+</body>
+</html>
