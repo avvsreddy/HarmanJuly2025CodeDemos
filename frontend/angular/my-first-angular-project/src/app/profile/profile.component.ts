@@ -33,6 +33,7 @@ export class ProfileComponent {
 
   removeSkill(index: number) {
     this.skills.removeAt(index);
+   
   }
 
   onSubmit() {
