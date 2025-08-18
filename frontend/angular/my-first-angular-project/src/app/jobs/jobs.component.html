@@ -1,0 +1,17 @@
+<h2>Available Jobs</h2>
+<div class="row g-4">
+	<div class="col-md-6" *ngFor="let job of jobs">
+		<div class="card h-100">
+			<div class="card-body">
+				<h5 class="card-title">{{job.title}}</h5>
+				<p class="card-text">{{job.description}}</p>
+				<span class="badge bg-success">{{job.location}}</span>
+			</div>
+		</div>
+	</div>
+</div>
+<hr>
+<h3>Job List</h3>
+<ul>
+	<li *ngFor="let job of jobs">{{job.title}} - {{job.location}}</li>
+</ul>

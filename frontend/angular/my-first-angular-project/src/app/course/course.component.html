@@ -1,0 +1,44 @@
+
+<form (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm bg-light mt-5" style="max-width: 500px; margin: auto;">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input [(ngModel)]="course.studentName" type="text" class="form-control" id="name" name="studentName" placeholder="Enter Name">
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input [(ngModel)]="course.email" type="email" class="form-control" id="email" name="email" placeholder="Enter Email">
+    </div>
+    <div class="mb-3">
+        <label for="mobile" class="form-label">Mobile</label>
+        <input [(ngModel)]="course.phone" type="text" class="form-control" id="mobile" name="phone" placeholder="Enter Mobile">
+    </div>
+    <div class="mb-3">
+        <label class="form-label d-block">Gender</label>
+        <div class="form-check form-check-inline">
+            <input [(ngModel)]="course.gender" class="form-check-input" type="radio" name="gender" id="male" value="Male">
+            <label class="form-check-label" for="male">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input [(ngModel)]="course.gender" class="form-check-input" type="radio" name="gender" id="female" value="Female">
+            <label class="form-check-label" for="female">Female</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input [(ngModel)]="course.gender" class="form-check-input" type="radio" name="gender" id="other" value="Other">
+            <label class="form-check-label" for="other">Other</label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="course" class="form-label">Choose the course</label>
+        <select class="form-select" name="courseName" [(ngModel)]="course.courseName">
+            <option *ngFor="let courseName of courses" [value]="courseName">{{ courseName }} </option>
+        </select>
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="subscript" name="subscription" [(ngModel)]="course.subscription">
+        <label class="form-check-label" for="subscription">Subscribe to newsletter</label>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Submit</button>
+</form>
+
+    
+

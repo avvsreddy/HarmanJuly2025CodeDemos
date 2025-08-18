@@ -1,0 +1,44 @@
+<h1>User Profile Info</h1>
+<hr>
+
+<!-- <ul>
+    @for (user of users; track $index) {
+    <li>{{user.name}}</li> 
+    }
+   <li>{{users[1].name}}</li> 
+    <li>{{users[2].name}}</li> 
+</ul> -->
+
+<table class="table border-3">
+    <!-- @for (user of users; track $index) { -->
+    <tr *ngFor="let user of users">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td><img [src]="user.picture" [alt]="user.name"></td>
+    </tr>
+
+</table>
+
+<div class="container">
+<div class="row g-4">
+@for (user of users; track $index) {
+    <div class="col-md-6">
+  <div class="card h-100">
+    @if (user.isActive) {
+    <img [src]="user.picture" class="card-img-top custom-img" 
+    [alt]="user.name">
+    }
+    @else {
+         <img src="" class="card-img-top custom-img" 
+    [alt]="user.name">
+    }
+    <div class="card-body text-center">
+      <h5 class="card-title">{{user.name}}</h5>
+
+    </div>
+  </div>
+</div>
+}
+</div>
+</div>
+
