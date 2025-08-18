@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { CourseRegistration } from '../../models/course-registration';
 import { FormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-course',
-  imports: [FormsModule,NgFor],
+  imports: [FormsModule,NgFor,NgIf],
   templateUrl: './course.component.html',
   styleUrl: './course.component.css'
 })
@@ -28,7 +28,8 @@ registrationDate: new Date()
 courses:string[] = ['Angular', 'React', 'Vue', '.Net','Java'];
 
 onSubmit(){
-  console.log(this.course);
+  //console.log(formCtrl);
+  //console.log(this.course);
   // Here you can add logic to handle the form submission, like sending data to a server
 }
 
