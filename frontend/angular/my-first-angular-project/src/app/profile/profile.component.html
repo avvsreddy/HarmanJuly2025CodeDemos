@@ -1,0 +1,41 @@
+<h2>User Profile (Reactive Form)</h2>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm bg-light" style="max-width: 500px; margin: auto;">
+	<div class="mb-3">
+		<label for="name" class="form-label">Name</label>
+		<input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter Name">
+		<small>
+			<span class="text-danger" *ngIf="profileForm.get('name')?.hasError('required') && profileForm.get('name')?.touched">Name is required.</span>
+			<span class="text-danger" *ngIf="profileForm.get('name')?.hasError('minlength') && profileForm.get('name')?.touched">Name must be at least 2 characters.</span>
+		</small>
+	</div>
+	<div class="mb-3">
+		<label for="email" class="form-label">Email</label>
+		<input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter Email">
+		<small>
+			<span class="text-danger" *ngIf="profileForm.get('email')?.hasError('required') && profileForm.get('email')?.touched">Email is required.</span>
+			<span class="text-danger" *ngIf="profileForm.get('email')?.hasError('email') && profileForm.get('email')?.touched">Please enter a valid email address.</span>
+		</small>
+	</div>
+	<div class="mb-3">
+		<label for="mobile" class="form-label">Mobile</label>
+		<input type="text" class="form-control" id="mobile" formControlName="mobile" placeholder="Enter Mobile">
+		<small>
+			<span class="text-danger" *ngIf="profileForm.get('mobile')?.hasError('required') && profileForm.get('mobile')?.touched">Mobile is required.</span>
+			<span class="text-danger" *ngIf="profileForm.get('mobile')?.hasError('pattern') && profileForm.get('mobile')?.touched">Mobile must be a 10-digit number.</span>
+		</small>
+	</div>
+	<div class="mb-3">
+		<label class="form-label">Skills</label>
+		<div formArrayName="skills">
+			<div *ngFor="let skillCtrl of skills.controls; let i = index" class="input-group mb-2">
+				<input type="text" class="form-control" [formControlName]="i" placeholder="Enter Skill">
+				<button type="button" class="btn btn-danger" (click)="removeSkill(i)" *ngIf="skills.length > 1">Remove</button>
+			</div>
+			<button type="button" class="btn btn-secondary" (click)="addSkill()">Add Skill</button>
+		</div>
+		<small>
+			<span class="text-danger" *ngIf="skills.invalid && profileForm.get('skills')?.touched">At least one skill is required.</span>
+		</small>
+	</div>
+	<button type="submit" class="btn btn-primary w-100" [disabled]="profileForm.invalid">Submit</button>
+</form>
