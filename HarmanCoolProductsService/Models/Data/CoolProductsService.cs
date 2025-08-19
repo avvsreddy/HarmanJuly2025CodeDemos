@@ -20,7 +20,7 @@ namespace HarmanCoolProductsService.Models.Data
 
         public async Task<Product> GetProductByNameAsync(string name)
         {
-            return await db.Products.Where(p => p.Name == name && p.IsDeleted == false).FirstOrDefaultAsync();
+            return await db.Products.Where(p => p.Name.Contains(name) && p.IsDeleted == false).FirstOrDefaultAsync();
         }
 
         public async Task<List<Product>> GetProductsAsync()

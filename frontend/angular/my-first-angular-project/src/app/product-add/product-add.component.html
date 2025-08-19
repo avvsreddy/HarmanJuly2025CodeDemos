@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <h2>Add New Product</h2>
+  <h5>{{msg}}</h5>
+  <form (ngSubmit)="onSubmit(productForm)" #productForm="ngForm">
+    <div class="mb-3">
+      <label for="name" class="form-label">Product Name</label>
+      <input type="text" class="form-control" id="name" required [(ngModel)]="newProduct.name" name="name">
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <input type="number" class="form-control" id="price" required [(ngModel)]="newProduct.price" name="price">
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Category</label>
+      <input type="text" class="form-control" id="category" required [(ngModel)]="newProduct.catagory" name="catagory">
+    </div>
+    <div class="mb-3">
+      <label for="brand" class="form-label">Brand</label>
+      <input type="text" class="form-control" id="brand" required [(ngModel)]="newProduct.brand" name="brand">
+    </div>
+    <div class="mb-3">
+      <label for="country" class="form-label">Country</label>
+      <input type="text" class="form-control" id="country" required [(ngModel)]="newProduct.country" name="country">
+    </div>
+    <div class="mb-3">
+      <label for="instock" class="form-label">In Stock</label>
+      <input type="checkbox" id="instock" [(ngModel)]="newProduct.instock" name="instock">
+    </div>
+    <button type="submit" class="btn btn-primary">Add Product</button>
+  </form>
+</div>
