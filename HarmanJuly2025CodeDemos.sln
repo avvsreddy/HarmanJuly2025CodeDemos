@@ -99,6 +99,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperCalculator.Data", "Sup
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmanCoolProductsService.TestProject", "HarmanCoolProductsService.TestProject\HarmanCoolProductsService.TestProject.csproj", "{D3AEDFE8-EE81-4B23-BE73-4253AB121AE0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure Blob Access Demo", "Azure Blob Access Demo", "{4460C229-4A49-4E22-84AA-1B613B25111B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBlobConsoleApp", "AzureBlobConsoleApp\AzureBlobConsoleApp.csproj", "{CE0D13E7-F24E-4549-9716-AEEF69B7D160}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -257,6 +261,10 @@ Global
 		{D3AEDFE8-EE81-4B23-BE73-4253AB121AE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3AEDFE8-EE81-4B23-BE73-4253AB121AE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3AEDFE8-EE81-4B23-BE73-4253AB121AE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE0D13E7-F24E-4549-9716-AEEF69B7D160}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE0D13E7-F24E-4549-9716-AEEF69B7D160}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE0D13E7-F24E-4549-9716-AEEF69B7D160}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE0D13E7-F24E-4549-9716-AEEF69B7D160}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -299,6 +307,7 @@ Global
 		{3998B33A-BD90-4EA9-A439-C41CE2538AA3} = {3C7B98CD-DD3B-445D-9533-F5D781BE8155}
 		{FDF5F7EF-875A-407F-8205-60B08470FE53} = {3C7B98CD-DD3B-445D-9533-F5D781BE8155}
 		{D3AEDFE8-EE81-4B23-BE73-4253AB121AE0} = {C3516D81-8A95-4C78-A1F3-B6C8DE5E5791}
+		{CE0D13E7-F24E-4549-9716-AEEF69B7D160} = {4460C229-4A49-4E22-84AA-1B613B25111B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE93BEC1-FFD4-402F-A55C-83BE121DF5A2}
