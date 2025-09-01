@@ -6,7 +6,7 @@ namespace AzureSqlDBConsoleApp
     {
         static void Main(string[] args)
         {
-            Product p = new Product
+            Product p = new Product //
             {
                 Name = "Sample Product",
                 Price = 19.99m
