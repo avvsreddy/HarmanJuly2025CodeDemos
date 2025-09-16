@@ -14,6 +14,10 @@ namespace HarmanCoolProductsService
             // Add services to the container.
 
             string connectionString = builder.Configuration.GetConnectionString("ConStr");
+            Console.WriteLine($"Connection String {connectionString}");
+
+            //string secret1 = builder.Configuration.GetValue<string>("MySecrets:Secret1");
+            //Console.WriteLine($"secret1 {secret1}");
 
             builder.Services.AddDbContext<HarmansCoolProductsDbContext>(options =>
             {
@@ -50,6 +54,7 @@ namespace HarmanCoolProductsService
 
 
             var app = builder.Build();
+            Console.WriteLine($">>> Current Environment: {app.Environment.EnvironmentName}");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

@@ -105,6 +105,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBlobConsoleApp", "Azur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureSqlDBConsoleApp", "AzureSqlDBConsoleApp\AzureSqlDBConsoleApp.csproj", "{FF12E653-D5DF-4655-8DB2-C7F280C083DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationSecretsDemo", "WebApplicationSecretsDemo\WebApplicationSecretsDemo.csproj", "{C1A3C02F-AFAE-4759-B07A-6A625E7791A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -271,6 +273,10 @@ Global
 		{FF12E653-D5DF-4655-8DB2-C7F280C083DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF12E653-D5DF-4655-8DB2-C7F280C083DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF12E653-D5DF-4655-8DB2-C7F280C083DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1A3C02F-AFAE-4759-B07A-6A625E7791A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1A3C02F-AFAE-4759-B07A-6A625E7791A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1A3C02F-AFAE-4759-B07A-6A625E7791A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1A3C02F-AFAE-4759-B07A-6A625E7791A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
